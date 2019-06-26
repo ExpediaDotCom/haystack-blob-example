@@ -1,0 +1,7 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 9090
+  adminConnectors: []
+template: Hi %s! I am %s!
+defaultName: Stranger ServerResource
