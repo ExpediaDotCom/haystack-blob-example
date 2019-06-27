@@ -1,50 +1,26 @@
 package com.blobExample;
 
+import com.expedia.haystack.dropwizard.bundle.Traceable;
+import com.expedia.haystack.dropwizard.configuration.TracerFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
-public class CommonConfiguration extends Configuration {
-    @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName;
+public class CommonConfiguration extends Configuration implements Traceable {
 
     private BlobsConfiguration blobsConfiguration;
 
     @Valid
     @NotNull
+    private TracerFactory tracerFactory;
+
+    @Valid
+    @NotNull
     private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
-
-    public CommonConfiguration() {
-        this.defaultName = "ClientRequest/ServerResponse";
-    }
-
-    @JsonProperty
-    public String getTemplate() {
-        return template;
-    }
-
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String name) {
-        this.defaultName = name;
-    }
 
     @JsonProperty("jerseyClient")
     public JerseyClientConfiguration getJerseyClientConfiguration() {
@@ -59,5 +35,15 @@ public class CommonConfiguration extends Configuration {
     @JsonProperty
     public void setBlobsConfiguration(BlobsConfiguration blobsConfiguration) {
         this.blobsConfiguration = blobsConfiguration;
+    }
+
+    @JsonProperty("tracer")
+    public TracerFactory getTracerFactory() {
+        return tracerFactory;
+    }
+
+    @JsonProperty("tracer")
+    public void setTracerFactory(TracerFactory tracerFactory) {
+        this.tracerFactory = tracerFactory;
     }
 }

@@ -26,7 +26,7 @@ public class ServerApplication extends Application<CommonConfiguration> {
 
     @Override
     public void run(CommonConfiguration commonConfiguration, Environment environment){
-        final ServerResource serverResource = new ServerResource(commonConfiguration.getTemplate(), commonConfiguration.getDefaultName());
+        final ServerResource serverResource = new ServerResource();
         environment.jersey().register(serverResource);
     }
 }

@@ -3,8 +3,6 @@ server:
     - type: http
       port: 9091
   adminConnectors: []
-template: Hello ServerResource. I am %s!
-defaultName: Stranger ClientResource
 
 blobsConfiguration:
   areBlobsEnabled: true
@@ -12,3 +10,16 @@ blobsConfiguration:
     name: AgentStore
     host: localhost
     port: 34001
+
+tracer:
+  serviceName: test-blob-client
+  enabled: true
+  dispatchers:
+    - type: logger
+      loggerName: dispatcher
+    - type: remote
+      client:
+        type: agent
+        host: localhost
+        format:
+          type: protobuf

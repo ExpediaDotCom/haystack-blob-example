@@ -86,9 +86,15 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <jmh.version>1.21</jmh.version>
         <blobs.version>1.0.0-SNAPSHOT</blobs.version>
+        <haystack-dropwizard.version>0.2.4</haystack-dropwizard.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.expedia.www</groupId>
+            <artifactId>haystack-dropwizard</artifactId>
+            <version>${haystack-dropwizard.version}</version>
+        </dependency>
         <!--JMH Related JDKs-->
         <dependency>
             <groupId>org.openjdk.jmh</groupId>

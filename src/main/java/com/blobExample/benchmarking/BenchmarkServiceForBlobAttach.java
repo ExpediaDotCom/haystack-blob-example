@@ -14,7 +14,14 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.expedia.blobs.core.BlobsFactory;
 import com.expedia.blobs.stores.io.FileStore;
+import com.expedia.www.haystack.client.Tracer;
+import com.expedia.www.haystack.client.dispatchers.Dispatcher;
+import com.expedia.www.haystack.client.dispatchers.RemoteDispatcher;
+import com.expedia.www.haystack.client.dispatchers.clients.GRPCAgentClient;
+import com.expedia.www.haystack.client.metrics.NoopMetricsRegistry;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.mockito.Mockito;
 import org.openjdk.jmh.annotations.*;
@@ -35,15 +42,22 @@ public class BenchmarkServiceForBlobAttach {
         public void doSetup() {
             LOGGER.info("doSetup Called");
 
-            template = "Hello ServerResource. I am %s!";
-            defaultName = "BlobsBenchmark";
             client = Mockito.mock(Client.class);
 
             blobStore = setupBlobStore();
 
-            clientRequest = new ClientRequest(defaultName, String.format(template, defaultName));
+            blobsFactory = new BlobsFactory(blobStore);
 
-            serverResponse = new ServerResponse("BlobServer", "");
+            clientRequest = new ClientRequest("ClientResource", String.format("Hello ServerResource. I am %s!", "ClientResource"));
+
+            serverResponse = new ServerResponse("BlobServer", "Hi");
+
+            dispatcher = new RemoteDispatcher.Builder(
+                    new NoopMetricsRegistry(),
+                    new GRPCAgentClient.Builder(new NoopMetricsRegistry(), "localhost", 34001).build())
+                    .build();
+
+            objectMapper = new ObjectMapper();
         }
 
         @TearDown(Level.Iteration)
@@ -89,31 +103,46 @@ public class BenchmarkServiceForBlobAttach {
         public ClientRequest clientRequest;
         public ServerResponse serverResponse;
         private FileStore blobStore;
-        private String template;
-        private String defaultName;
+        private BlobsFactory blobsFactory;
         private Client client;
+        private Dispatcher dispatcher;
+        private ObjectMapper objectMapper;
     }
 
     @Benchmark
     @BenchmarkMode({Mode.SampleTime, Mode.AverageTime, Mode.Throughput})
     public ClientResponse blobsEnabled(ClientState state) {
 
-        ClientResource clientResource = new ClientResource(state.template, state.defaultName, state.client, state.blobStore, null);
+        ClientResource clientResource = new ClientResource(
+                state.client,
+                new Tracer.Builder(
+                        new NoopMetricsRegistry(),
+                        "test-blob-client",
+                        state.dispatcher).build(),
+                state.blobsFactory,
+                state.objectMapper);
 
         setupBehaviour(state, clientResource);
 
-        return clientResource.getMessageFromServer(null);
+        return clientResource.getMessageFromServer();
     }
 
     @Benchmark
     @BenchmarkMode({Mode.SampleTime, Mode.AverageTime, Mode.Throughput})
     public ClientResponse blobsDisabled(ClientState state) {
 
-        ClientResource clientResource = new ClientResource(state.template, state.defaultName, state.client, null, null);
+        ClientResource clientResource = new ClientResource(
+                state.client,
+                new Tracer.Builder(
+                        new NoopMetricsRegistry(),
+                        "test-blob-client",
+                        state.dispatcher).build(),
+                null,
+                state.objectMapper);
 
         setupBehaviour(state, clientResource);
 
-        return clientResource.getMessageFromServer(null);
+        return clientResource.getMessageFromServer();
     }
 
     private void setupBehaviour(ClientState state, ClientResource clientResource) {
