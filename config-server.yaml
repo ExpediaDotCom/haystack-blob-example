@@ -3,3 +3,16 @@ server:
     - type: http
       port: 9090
   adminConnectors: []
+
+tracer:
+  serviceName: test-blob-client
+  enabled: true
+  dispatchers:
+    - type: logger
+      loggerName: dispatcher
+    - type: remote
+      client:
+        type: agent
+        host: localhost
+        format:
+          type: protobuf
