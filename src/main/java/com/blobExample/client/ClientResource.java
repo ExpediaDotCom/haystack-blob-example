@@ -51,7 +51,7 @@ public class ClientResource {
     @GET
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    @Traced(operationName = "/message")
+    @Traced(operationName = "message")
     public ClientResponse getMessageFromServer() {
 
         final String clientName = "ClientResource";
