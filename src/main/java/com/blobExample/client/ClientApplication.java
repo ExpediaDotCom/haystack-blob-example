@@ -51,9 +51,11 @@ public class ClientApplication extends Application<CommonConfiguration> {
 
         final Tracer tracer = environment.jersey().getProperty(Tracer.class.getName());
         final BlobsConfiguration blobsConfiguration = commonConfiguration.getBlobsConfiguration();
+        final String serverEndpoint = commonConfiguration.getServerEndpoint();
         final ClientResource clientResource = new ClientResource(
                 client,
                 tracer,
+                serverEndpoint,
                 blobsConfiguration.getAreBlobsEnabled() ? createBlobFactory(initializeBlobStore(blobsConfiguration)) : null,
                 environment.getObjectMapper());
         environment.jersey().register(clientResource);

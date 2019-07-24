@@ -18,6 +18,8 @@ public class CommonConfiguration extends Configuration implements Traceable {
     @NotNull
     private TracerFactory tracerFactory;
 
+    private String serverEndpoint;
+
     @Valid
     @NotNull
     private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
@@ -45,5 +47,15 @@ public class CommonConfiguration extends Configuration implements Traceable {
     @JsonProperty("tracer")
     public void setTracerFactory(TracerFactory tracerFactory) {
         this.tracerFactory = tracerFactory;
+    }
+
+    @JsonProperty
+    public String getServerEndpoint() {
+        return serverEndpoint;
+    }
+
+    @JsonProperty
+    public void setServerEndpoint(String serverEndpoint) {
+        this.serverEndpoint = serverEndpoint;
     }
 }

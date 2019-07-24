@@ -4,11 +4,13 @@ server:
       port: 9091
   adminConnectors: []
 
+serverEndpoint: http://span-blob-example-server:9090/hi
+
 blobsConfiguration:
   areBlobsEnabled: true
   store:
     name: AgentStore
-    host: localhost
+    host: haystack-agent
     port: 34001
 
 tracer:
@@ -20,6 +22,6 @@ tracer:
     - type: remote
       client:
         type: agent
-        host: localhost
+        host: haystack-agent
         format:
           type: protobuf

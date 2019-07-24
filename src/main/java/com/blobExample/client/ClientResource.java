@@ -32,16 +32,19 @@ public class ClientResource {
     private final BlobsFactory<BlobContext> blobFactory;
     private Client jerseyClient;
     private final ObjectMapper objectMapper;
+    private final String serverEndpoint;
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientResource.class);
 
     public ClientResource(Client jerseyClient,
                           Tracer tracer,
+                          String serverEndpoint,
                           BlobsFactory<BlobContext> blobFactory,
                           ObjectMapper objectMapper) {
         this.jerseyClient = jerseyClient;
         this.tracer = tracer;
         this.blobFactory = blobFactory;
         this.objectMapper = objectMapper;
+        this.serverEndpoint = serverEndpoint;
     }
 
     public Client getJerseyClient() {
@@ -65,7 +68,7 @@ public class ClientResource {
             writeBlob(requestBlobWriter, clientRequest, Collections.emptyMap(), BlobType.REQUEST);
         }
 
-        WebTarget webTarget = jerseyClient.target("http://localhost:9090/hi");
+        WebTarget webTarget = jerseyClient.target(serverEndpoint);
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
         Response response = invocationBuilder.post(
                 Entity.entity(
