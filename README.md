@@ -20,11 +20,7 @@ To understand how span tracing works please refer [haystack-dropwizard-example](
 
 ```mvn clean package```
  
- #### Run with Haystack server
- 
- To start haystack and agent locally, one can follow the instructions at https://github.com/ExpediaDotCom/haystack-docker#to-start-haystacks-traces-trends-and-service-graph
-
-After starting Haystack server, run this example with the following commands.
+ #### Run locally without haystack server intact (Just for debugging purpose)
 
 Post build use the following commands to:
 
@@ -40,10 +36,17 @@ Post build use the following commands to:
  
     ```curl http://localhost:9091/displayMessage```
     
-And then open Haystack UI at http://localhost:8080/ and search for `serviceName=test-blob-client` to see the traces.
+    
+#### Run locally with haystack server intact 
 
-Open the trace and look for `request-blob` and `response-blob` tags.
+To run the complete example properly please refer steps given in [haystack-docker](https://github.com/ExpediaDotCom/haystack-docker) for [spans-and-blobs](https://github.com/ExpediaDotCom/haystack-docker/tree/master/example). This will also start [haystack-agent](https://github.com/ExpediaDotCom/haystack-agent) at port `34001` and [haystack-ui](https://github.com/ExpediaDotCom/haystack-ui) at port `8080` locally along with the http [reverse-proxy](https://github.com/ExpediaDotCom/blobs/tree/master/haystack-blobs) at port `34002` for grpc service.
 
+After running the docker you can test the usage by following the given steps:
 
+ * Send a sample request:
  
- 
+    ```curl http://localhost:9091/displayMessage```
+    
+ * Open Haystack UI at http://localhost:8080/ and search for `serviceName=test-blob-client` to see the traces.
+
+* Open the trace and look for `request-blob` and `response-blob` tags.
