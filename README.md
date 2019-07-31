@@ -47,6 +47,11 @@ After running the docker you can test the usage by following the given steps:
  
     ```curl http://localhost:9091/displayMessage```
     
+    One can also use the sample script we have to send more requests to the server application and see metrics such as count, duration histogram etc in Haystack UI under trends.
+    ```
+    ./run.sh
+    ```
+    
  * Open Haystack UI at http://localhost:8080/ and search for `serviceName=test-blob-client` to see the traces.
 
 * Open the trace and look for `request-blob` and `response-blob` tags.
