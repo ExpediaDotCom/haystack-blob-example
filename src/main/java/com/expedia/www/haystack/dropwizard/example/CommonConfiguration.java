@@ -1,4 +1,4 @@
-package com.blobExample;
+package com.expedia.www.haystack.dropwizard.example;
 
 import com.expedia.haystack.dropwizard.bundle.Traceable;
 import com.expedia.haystack.dropwizard.configuration.TracerFactory;

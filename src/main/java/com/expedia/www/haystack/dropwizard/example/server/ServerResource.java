@@ -1,8 +1,8 @@
-package com.blobExample.server;
+package com.expedia.www.haystack.dropwizard.example.server;
 
 
-import com.blobExample.models.ClientRequest;
-import com.blobExample.models.ServerResponse;
+import com.expedia.www.haystack.dropwizard.example.models.ClientRequest;
+import com.expedia.www.haystack.dropwizard.example.models.ServerResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

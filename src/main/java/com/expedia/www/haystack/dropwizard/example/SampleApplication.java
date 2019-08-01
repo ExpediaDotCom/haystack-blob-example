@@ -1,7 +1,7 @@
-package com.blobExample;
+package com.expedia.www.haystack.dropwizard.example;
 
-import com.blobExample.client.ClientApplication;
-import com.blobExample.server.ServerApplication;
+import com.expedia.www.haystack.dropwizard.example.client.ClientApplication;
+import com.expedia.www.haystack.dropwizard.example.server.ServerApplication;
 
 public class SampleApplication {
     public static void main(String[] args) throws Exception {
@@ -9,9 +9,9 @@ public class SampleApplication {
         if (args == null)
             throw new Exception("Arguments not provided");
 
-        if (String.format("sampleClient").equalsIgnoreCase(args[0])) {
+        if (String.format("client").equalsIgnoreCase(args[0])) {
             new ClientApplication().start(args);
-        } else if (String.format("sampleServer").equalsIgnoreCase(args[0])) {
+        } else if (String.format("server").equalsIgnoreCase(args[0])) {
             new ServerApplication().start(args);
         } else {
             throw new Exception(String.format("unexpected argument").concat(" ").concat(args[0]));

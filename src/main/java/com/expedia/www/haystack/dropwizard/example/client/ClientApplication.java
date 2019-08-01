@@ -1,7 +1,7 @@
-package com.blobExample.client;
+package com.expedia.www.haystack.dropwizard.example.client;
 
-import com.blobExample.BlobsConfiguration;
-import com.blobExample.CommonConfiguration;
+import com.expedia.www.haystack.dropwizard.example.BlobsConfiguration;
+import com.expedia.www.haystack.dropwizard.example.CommonConfiguration;
 import com.expedia.blobs.core.BlobContext;
 import com.expedia.blobs.core.BlobStore;
 import com.expedia.blobs.core.BlobsFactory;

@@ -1,6 +1,6 @@
-package com.blobExample.server;
+package com.expedia.www.haystack.dropwizard.example.server;
 
-import com.blobExample.CommonConfiguration;
+import com.expedia.www.haystack.dropwizard.example.CommonConfiguration;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;

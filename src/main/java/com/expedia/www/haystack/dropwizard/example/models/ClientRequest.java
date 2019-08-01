@@ -1,4 +1,4 @@
-package com.blobExample.models;
+package com.expedia.www.haystack.dropwizard.example.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

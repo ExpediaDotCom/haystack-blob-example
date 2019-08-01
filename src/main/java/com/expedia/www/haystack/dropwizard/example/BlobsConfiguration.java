@@ -1,4 +1,4 @@
-package com.blobExample;
+package com.expedia.www.haystack.dropwizard.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;

@@ -1,8 +1,8 @@
-package com.blobExample.client;
+package com.expedia.www.haystack.dropwizard.example.client;
 
-import com.blobExample.models.ClientRequest;
-import com.blobExample.models.ClientResponse;
-import com.blobExample.models.ServerResponse;
+import com.expedia.www.haystack.dropwizard.example.models.ClientRequest;
+import com.expedia.www.haystack.dropwizard.example.models.ClientResponse;
+import com.expedia.www.haystack.dropwizard.example.models.ServerResponse;
 import com.codahale.metrics.annotation.Timed;
 import com.expedia.blobs.core.*;
 import com.expedia.www.haystack.client.Span;
