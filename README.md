@@ -1,4 +1,4 @@
-## Span-Blob Example
+## Haystack Blob Example
 
 This application demonstrates the use of Spans and Blobs together to be used by [Haystack-Agent](https://github.com/ExpediaDotCom/haystack-agent). This will show how the metadata for a blob stored could be saved as a tag in a span to be used later for reading them again.
 
@@ -26,11 +26,11 @@ Post build use the following commands to:
 
  * Run the client on [localhost:9091](http://localhost:9091)
 
-    ```java -jar target/blobExample-service-1.0-SNAPSHOT.jar sampleClient```
+    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar client```
 
  * Run the server on [localhost:9090](http://localhost:9090)
 
-    ```java -jar target/blobExample-service-1.0-SNAPSHOT.jar sampleServer```
+    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar server```
  
  * Send a sample request:
  

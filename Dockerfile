@@ -13,4 +13,4 @@ WORKDIR ${APP_HOME}
 
 COPY . .
 
-CMD java -jar span-blob-example-service-1.0-SNAPSHOT.jar $RUN_TYPE_VAL
+CMD java -jar haystack-blob-example-service-1.0-SNAPSHOT.jar $RUN_TYPE_VAL
