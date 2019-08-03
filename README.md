@@ -7,7 +7,7 @@ In this example, the client sends a request to the server which then sends the r
 ## Understanding the implementation
 To understand how span tracing works and is implemented please refer [haystack-dropwizard-example](https://github.com/ExpediaDotCom/haystack-dropwizard-example).
 
-For blobs you need to first setup [Blob Store](/core/src/main/java/com/expedia/blobs/core/BlobStore.java) and [Blob Factory](/core/src/main/java/com/expedia/blobs/core/BlobsFactory.java).
+For blobs you need to first setup [Blob Store](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobStore.java) and [Blob Factory](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobsFactory.java).
 Refer [this](https://github.com/ExpediaDotCom/haystack-blob-example/blob/master/src/main/java/com/blobExample/client/ClientApplication.java#L56) to have complete understanding of how to initialize them.
 
 Once the blob store and factory are in place you can use them whenever you need to get a [Blob Writer](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobWriter.java). The type of writer returned depends on the predicate you provided(if any) during the initialization of Blob Factory. If the predicate satisfies then you will get the [BlobWriterImpl](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobWriterImpl.java) else you will get a [No Operation Writer](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/NoOpBlobWriterImpl.java).
