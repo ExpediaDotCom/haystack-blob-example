@@ -4,10 +4,10 @@ server:
       port: 9091
   adminConnectors: []
 
-serverEndpoint: http://span-blob-example-server:9090/hi
+serverEndpoint: http://haystack-blob-example-server:9090/hi
 
-blobsConfiguration:
-  areBlobsEnabled: true
+blobs:
+  enabled: true
   store:
     name: AgentStore
     host: haystack-agent
