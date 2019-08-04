@@ -1,8 +1,8 @@
-package com.blobExample.client;
+package com.expedia.www.haystack.dropwizard.example.client;
 
-import com.blobExample.models.ClientRequest;
-import com.blobExample.models.ClientResponse;
-import com.blobExample.models.ServerResponse;
+import com.expedia.www.haystack.dropwizard.example.models.ClientRequest;
+import com.expedia.www.haystack.dropwizard.example.models.ClientResponse;
+import com.expedia.www.haystack.dropwizard.example.models.ServerResponse;
 import com.codahale.metrics.annotation.Timed;
 import com.expedia.blobs.core.*;
 import com.expedia.www.haystack.client.Span;
@@ -64,7 +64,7 @@ public class ClientResource {
         final SpanBlobContext blobContext = new SpanBlobContext((Span) this.tracer.activeSpan());
 
         if (blobFactory != null) {
-            BlobWriter requestBlobWriter = getBlobWriter(blobContext);
+            BlobWriter requestBlobWriter = this.blobFactory.create(blobContext);
             writeBlob(requestBlobWriter, clientRequest, Collections.emptyMap(), BlobType.REQUEST);
         }
 
@@ -80,7 +80,7 @@ public class ClientResource {
 
 
         if (blobFactory != null) {
-            BlobWriter responseBlobWriter = getBlobWriter(blobContext);
+            BlobWriter responseBlobWriter = this.blobFactory.create(blobContext);
             writeBlob(responseBlobWriter, serverResponse, Collections.emptyMap(), BlobType.RESPONSE);
         }
 
@@ -99,9 +99,5 @@ public class ClientResource {
                 },
                 m -> blobMetadata.forEach(m::add)
         );
-    }
-
-    private BlobWriter getBlobWriter(BlobContext blobContext) {
-        return this.blobFactory.create(blobContext);
     }
 }

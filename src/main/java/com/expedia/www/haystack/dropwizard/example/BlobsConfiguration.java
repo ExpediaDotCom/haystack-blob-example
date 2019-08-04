@@ -1,4 +1,4 @@
-package com.blobExample;
+package com.expedia.www.haystack.dropwizard.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -9,16 +9,16 @@ public class BlobsConfiguration {
     private Store store;
 
     @NotEmpty
-    private Boolean areBlobsEnabled;
+    private Boolean enabled;
 
     @JsonProperty
-    public Boolean getAreBlobsEnabled() {
-        return areBlobsEnabled;
+    public Boolean isEnabled() {
+        return enabled;
     }
 
     @JsonProperty
-    public void setAreBlobsEnabled(Boolean areBlobsEnabled) {
-        this.areBlobsEnabled = areBlobsEnabled;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @JsonProperty

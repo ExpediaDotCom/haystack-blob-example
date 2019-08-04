@@ -1,4 +1,4 @@
-package com.blobExample;
+package com.expedia.www.haystack.dropwizard.example;
 
 import com.expedia.haystack.dropwizard.bundle.Traceable;
 import com.expedia.haystack.dropwizard.configuration.TracerFactory;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 public class CommonConfiguration extends Configuration implements Traceable {
 
-    private BlobsConfiguration blobsConfiguration;
+    private BlobsConfiguration blobs;
 
     @Valid
     @NotNull
@@ -30,13 +30,13 @@ public class CommonConfiguration extends Configuration implements Traceable {
     }
 
     @JsonProperty
-    public BlobsConfiguration getBlobsConfiguration() {
-        return blobsConfiguration;
+    public BlobsConfiguration getBlobs() {
+        return blobs;
     }
 
     @JsonProperty
-    public void setBlobsConfiguration(BlobsConfiguration blobsConfiguration) {
-        this.blobsConfiguration = blobsConfiguration;
+    public void setBlobs(BlobsConfiguration blobs) {
+        this.blobs = blobs;
     }
 
     @JsonProperty("tracer")
