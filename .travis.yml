@@ -1,0 +1,36 @@
+sudo: required
+
+dist: trusty
+
+services:
+  - docker
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+    - BRANCH=${TRAVIS_BRANCH}
+    - TAG=${TRAVIS_TAG}
+    - SHA=${TRAVIS_COMMIT}
+    - CLIENT_DOCKER_IMAGE_NAME=haystack-blob-example-client
+    - SERVER_DOCKER_IMAGE_NAME=haystack-blob-example-server
+    - DOCKER_ORG=expediadotcom
+
+cache:
+  directories:
+  - $HOME/.m2
+
+install:
+  - mvn clean package
+  - docker build -t $CLIENT_DOCKER_IMAGE_NAME --build-arg run_type=client -f Dockerfile .
+  - docker build -t $SERVER_DOCKER_IMAGE_NAME --build-arg run_type=server -f Dockerfile .
+
+script:
+  - .travis/deploy.sh
+
+notifications:
+  email:
+    - haystack-notifications@expedia.com
