@@ -85,7 +85,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jmh.version>1.21</jmh.version>
-        <blobs.version>1.0.0</blobs.version>
+        <blobs.version>1.0.1</blobs.version>
         <haystack-dropwizard.version>0.2.4</haystack-dropwizard.version>
     </properties>
 
@@ -141,11 +141,6 @@
         <dependency>
             <groupId>com.expedia.www</groupId>
             <artifactId>blobs-core</artifactId>
-            <version>${blobs.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.expedia.www</groupId>
-            <artifactId>blobs-s3-store</artifactId>
             <version>${blobs.version}</version>
         </dependency>
         <dependency>
