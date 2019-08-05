@@ -3,7 +3,7 @@ MAINTAINER Haystack <haystack@expedia.com>
 
 ARG run_type
 
-ENV APP_NAME span-blob-example-service-1.0-SNAPSHOT
+ENV APP_NAME haystack-blob-example-service-1.0-SNAPSHOT
 ENV APP_HOME /app/bin/blobs_home
 ENV RUN_TYPE_VAL=$run_type
 
