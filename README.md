@@ -15,6 +15,33 @@ Once the blob store and factory are in place you can use them whenever you need 
 Writing a blob to a store is the most easy step for which you can refer [this](https://github.com/ExpediaDotCom/haystack-blob-example/blob/master/src/main/java/com/blobExample/client/ClientResource.java#L66) piece of code.
 
 ##### Point to remember: The Blob Store and Blob Factory should be initiated only once.
+
+## Dependencies involved
+
+Below are the following dependencies that have been used to make this example runnable with `blobs.version=1.0.1`.
+
+```
+<dependency>
+	<groupId>com.expedia.www</groupId>
+    <artifactId>blobs-core</artifactId>
+    <version>${blobs.version}</version>
+</dependency>
+<dependency>
+	<groupId>com.expedia.www</groupId>
+    <artifactId>span-blob-context</artifactId>
+    <version>${blobs.version}</version>
+</dependency>
+<dependency>
+	<groupId>com.expedia.www</groupId>
+    <artifactId>blobs-agent-client</artifactId>
+    <version>${blobs.version}</version>
+</dependency>
+<dependency>
+    <groupId>com.expedia.www</groupId>
+    <artifactId>blobs-file-store</artifactId>
+	<version>${blobs.version}</version>
+</dependency>
+```
  
  ## Running this example
  
