@@ -11,7 +11,7 @@ blobs:
   store:
     name: AgentStore
     host: haystack-agent
-    port: 34001
+    port: 35001
 
 tracer:
   serviceName: test-blob-client

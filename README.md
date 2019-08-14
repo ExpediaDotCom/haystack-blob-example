@@ -62,7 +62,7 @@ Below are the following dependencies that have been used to make this example ru
     ```
     name: AgentStore
     host: haystack-agent
-    port: 34001
+    port: 35001
     ```
     with 
     ```
@@ -106,7 +106,7 @@ Look for the meta-tags `request-blob` and `response-blob` in the request and res
     
 #### Run locally with haystack server intact 
 
-To run the complete example properly please refer steps given in [haystack-docker](https://github.com/ExpediaDotCom/haystack-docker) for [spans-and-blobs](https://github.com/ExpediaDotCom/haystack-docker/tree/master/example). This will also start [haystack-agent](https://github.com/ExpediaDotCom/haystack-agent) at port `34001` and [haystack-ui](https://github.com/ExpediaDotCom/haystack-ui) at port `8080` locally along with the http [reverse-proxy](https://github.com/ExpediaDotCom/blobs/tree/master/haystack-blobs) at port `34002` for grpc service.
+To run the complete example properly please refer steps given in [haystack-docker](https://github.com/ExpediaDotCom/haystack-docker) for [spans-and-blobs](https://github.com/ExpediaDotCom/haystack-docker/tree/master/example). This will also start [haystack-agent](https://github.com/ExpediaDotCom/haystack-agent) at port `35001` and [haystack-ui](https://github.com/ExpediaDotCom/haystack-ui) at port `8080` locally along with the http [reverse-proxy](https://github.com/ExpediaDotCom/blobs/tree/master/haystack-blobs) at port `35002` for grpc service.
 
 After running the docker you can test the usage by following the given steps:
 
