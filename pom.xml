@@ -85,7 +85,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jmh.version>1.21</jmh.version>
-        <blobs.version>1.0.1</blobs.version>
+        <blobs.version>1.0.2</blobs.version>
         <haystack-dropwizard.version>0.2.4</haystack-dropwizard.version>
     </properties>
 
