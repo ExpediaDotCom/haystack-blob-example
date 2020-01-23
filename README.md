@@ -6,19 +6,32 @@ In this example, the client sends a request to the server which then sends the r
 
 ## Understanding the implementation
 To understand how span tracing works and is implemented please refer [haystack-dropwizard-example](https://github.com/ExpediaDotCom/haystack-dropwizard-example).
+For adding the request/response blobs along with tracing, you follow the same steps as tracing example, additionally you need to provide blob configuration similar to:
 
-For blobs you need to first setup [Blob Store](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobStore.java) and [Blob Factory](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobsFactory.java).
-Refer [this](https://github.com/ExpediaDotCom/haystack-blob-example/blob/master/src/main/java/com/blobExample/client/ClientApplication.java#L56) to have complete understanding of how to initialize them.
+```yaml
 
-Once the blob store and factory are in place you can use them whenever you need to get a [Blob Writer](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobWriter.java). The type of writer returned depends on the predicate you provided(if any) during the initialization of Blob Factory. If the predicate satisfies then you will get the [BlobWriterImpl](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/BlobWriterImpl.java) else you will get a [No Operation Writer](https://github.com/ExpediaDotCom/blobs/blob/master/core/src/main/java/com/expedia/blobs/core/NoOpBlobWriterImpl.java).
+blobs:
+  enabled: true
+  store:
+   name: file
+```
+And update AppConfiguration to return the [BlobFactory](https://github.com/ExpediaDotCom/haystack-blob-example/blob/master/src/main/java/com/expedia/www/haystack/dropwizard/example/config/AppConfiguration.java#L22) instance.
 
-Writing a blob to a store is the most easy step for which you can refer [this](https://github.com/ExpediaDotCom/haystack-blob-example/blob/master/src/main/java/com/blobExample/client/ClientResource.java#L66) piece of code.
+#### How to blob conditionally?
+There may be a valid usecase where you don't want to blob request/response with every span, may be for performance reasons.
+But you may want to turn on the blobs only if you see a X-DEBUG header from your upstream request. In order to do this, 
+you can implement these functions and setBlobable in BlobFactory. By default, they are set to true.
 
-##### Point to remember: The Blob Store and Blob Factory should be initiated only once.
+```java
+    boolean isServerRequestValidForBlob(ContainerRequestContext req);
+    boolean isServerResponseValidForBlob(ContainerResponseContext resp);
+    boolean isClientRequestValidForBlob(ClientRequestContext req);
+    boolean isClientResponseValidForBlob(ClientResponseContext resp);
+```
 
 ## Dependencies involved
 
-We use [haystack-dropwizard](https://github.com/ExpediaDotCom/haystack-dropwizard) library version >= 0.3.1 that adds the support for blobs.
+We use [haystack-dropwizard](https://github.com/ExpediaDotCom/haystack-dropwizard) library version >= 0.3.1 that does all the heavy lifting for adding the support of blob feature.
  
  ## Running this example
   
@@ -78,16 +91,3 @@ After running the docker you can test the usage by following the given steps:
  * Open Haystack UI at http://localhost:8080/ and search for `serviceName=blob-client` to see the traces.
 
 * Open the trace and look for `request-blob` and `response-blob` tags.
-
-
-#### How to blob conditionally?
-There may be a valid usecase where you don't want to blob request/response with every span, may be for performance reasons.
-But you may want to turn on the blobs only if you see a X-DEBUG header from your upstream request. In order to do this, 
-you can implement these functions and setBlobable in BlobFactory. By default, they are set to true.
-
-```java
-    boolean isServerRequestValidForBlob(ContainerRequestContext req);
-    boolean isServerResponseValidForBlob(ContainerResponseContext resp);
-    boolean isClientRequestValidForBlob(ClientRequestContext req);
-    boolean isClientResponseValidForBlob(ClientResponseContext resp);
-```
