@@ -4,17 +4,17 @@ server:
       port: 9091
   adminConnectors: []
 
-serverEndpoint: http://haystack-blob-example-server:9090/hi
+serverEndpoint: http://haystack-blob-example-server:9090/api
 
 blobs:
   enabled: true
   store:
-    name: AgentStore
+    name: agent
     host: haystack-agent
     port: 35001
 
 tracer:
-  serviceName: test-blob-client
+  serviceName: blob-client
   enabled: true
   dispatchers:
     - type: logger

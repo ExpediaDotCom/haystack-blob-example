@@ -1,0 +1,19 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 9091
+  adminConnectors: []
+
+serverEndpoint: http://localhost:9090/api
+
+blobs:
+  enabled: true
+  store:
+    name: file
+
+tracer:
+  serviceName: blob-client
+  enabled: true
+  dispatchers:
+    - type: logger
+      loggerName: dispatcher

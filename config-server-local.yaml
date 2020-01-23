@@ -7,9 +7,7 @@ server:
 blobs:
   enabled: true
   store:
-    name: agent
-    host: haystack-agent
-    port: 35001
+   name: file
 
 tracer:
   serviceName: blob-server
@@ -17,9 +15,3 @@ tracer:
   dispatchers:
     - type: logger
       loggerName: dispatcher
-    - type: remote
-      client:
-        type: agent
-        host: haystack-agent
-        format:
-          type: protobuf

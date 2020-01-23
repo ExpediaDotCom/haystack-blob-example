@@ -1,6 +1,7 @@
-package com.expedia.www.haystack.dropwizard.example;
+package com.expedia.www.haystack.dropwizard.example.config;
 
 import com.expedia.haystack.dropwizard.bundle.Traceable;
+import com.expedia.haystack.dropwizard.configuration.BlobFactory;
 import com.expedia.haystack.dropwizard.configuration.TracerFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
@@ -10,13 +11,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
-public class CommonConfiguration extends Configuration implements Traceable {
-
-    private BlobsConfiguration blobs;
+public class AppConfiguration extends Configuration implements Traceable {
 
     @Valid
     @NotNull
     private TracerFactory tracerFactory;
+
+    @Valid
+    @NotNull
+    private BlobFactory blobFactory;
 
     private String serverEndpoint;
 
@@ -29,16 +32,6 @@ public class CommonConfiguration extends Configuration implements Traceable {
         return jerseyClient;
     }
 
-    @JsonProperty
-    public BlobsConfiguration getBlobs() {
-        return blobs;
-    }
-
-    @JsonProperty
-    public void setBlobs(BlobsConfiguration blobs) {
-        this.blobs = blobs;
-    }
-
     @JsonProperty("tracer")
     public TracerFactory getTracerFactory() {
         return tracerFactory;
@@ -47,6 +40,16 @@ public class CommonConfiguration extends Configuration implements Traceable {
     @JsonProperty("tracer")
     public void setTracerFactory(TracerFactory tracerFactory) {
         this.tracerFactory = tracerFactory;
+    }
+
+    @JsonProperty("blobs")
+    public BlobFactory getBlobFactory() {
+        return blobFactory;
+    }
+
+    @JsonProperty("blobs")
+    public void setBlobFactory() {
+        this.blobFactory = blobFactory;
     }
 
     @JsonProperty

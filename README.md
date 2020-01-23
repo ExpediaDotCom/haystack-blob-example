@@ -18,35 +18,10 @@ Writing a blob to a store is the most easy step for which you can refer [this](h
 
 ## Dependencies involved
 
-Below are the following dependencies that have been used to make this example runnable with `blobs.version=1.0.1`.
-
-```
-<dependency>
-	<groupId>com.expedia.www</groupId>
-    <artifactId>blobs-core</artifactId>
-    <version>${blobs.version}</version>
-</dependency>
-<dependency>
-	<groupId>com.expedia.www</groupId>
-    <artifactId>span-blob-context</artifactId>
-    <version>${blobs.version}</version>
-</dependency>
-<dependency>
-	<groupId>com.expedia.www</groupId>
-    <artifactId>blobs-agent-client</artifactId>
-    <version>${blobs.version}</version>
-</dependency>
-<dependency>
-    <groupId>com.expedia.www</groupId>
-    <artifactId>blobs-file-store</artifactId>
-	<version>${blobs.version}</version>
-</dependency>
-```
+We use [haystack-dropwizard](https://github.com/ExpediaDotCom/haystack-dropwizard) library version >= 0.3.0 that adds the support for blobs.
  
  ## Running this example
- 
- To enable the recording of the blobs, set _`enabled`_ to true in _`config-client.yaml`_, run the client and server again and hit the above URL.
- 
+  
  #### Build
  
  Required:
@@ -56,54 +31,35 @@ Below are the following dependencies that have been used to make this example ru
 
 ```mvn clean package```
  
- #### Run locally without haystack server intact (Just for debugging purpose)
- 
-* Please replace the following store configurations for blobs in the `config-client.yml`:
-    ```
-    name: AgentStore
-    host: haystack-agent
-    port: 35001
-    ```
-    with 
-    ```
-    name: FileStore
-    ```
-
-    You can find the blobs stored inside `/blobs` folder of your application's directory.
-
-* Also, remove the following configurations in tracer's dispatchers:
-    ```
-    - type: remote
-        client:
-            type: agent
-            host: haystack-agent
-            format:
-                type: protobuf
-    ```
-
-    You will be able to see your spans getting published as logs.
-    
-* Replace `serverEndpoint: http://haystack-blob-example-server:9090/hi` with `serverEndpoint: http://localhost:9090/hi` in the same config file.
-    
-* Re-build the application again
-
-Post build use the following commands to:
-
+#### Run locally without haystack-agent (Just for debugging purpose)
  * Run the client on [localhost:9091](http://localhost:9091)
 
-    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar client```
+    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar client config-client-local.yaml```
 
  * Run the server on [localhost:9090](http://localhost:9090)
 
-    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar server```
+    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar server config-server-local.yaml```
+
+The spans gets logged on the console and blobs will be written under '/blobs' directory in your working directory.
+
+#### Run locally with haystack-agent (mostly for production)
+
+ * Run the client on [localhost:9091](http://localhost:9091)
+
+    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar client config-client.yaml```
+
+ * Run the server on [localhost:9090](http://localhost:9090)
+
+    ```java -jar target/haystack-blob-example-service-1.0-SNAPSHOT.jar server config-server.yaml```
  
- * Send a sample request:
+
+#### Test Blob Feature 
+  * Send a sample request:
  
-    ```curl http://localhost:9091/displayMessage```
+    ```curl http://localhost:9091/message```
     
-Look for the meta-tags `request-blob` and `response-blob` in the request and response spans respectively. 
-    
-    
+Look for the meta-tags `request-blob` and `response-blob` in the request and response spans respectively.
+      
 #### Run locally with haystack server intact 
 
 To run the complete example properly please refer steps given in [haystack-docker](https://github.com/ExpediaDotCom/haystack-docker) for [spans-and-blobs](https://github.com/ExpediaDotCom/haystack-docker/tree/master/example). This will also start [haystack-agent](https://github.com/ExpediaDotCom/haystack-agent) at port `35001` and [haystack-ui](https://github.com/ExpediaDotCom/haystack-ui) at port `8080` locally along with the http [reverse-proxy](https://github.com/ExpediaDotCom/blobs/tree/master/haystack-blobs) at port `35002` for grpc service.
@@ -112,13 +68,26 @@ After running the docker you can test the usage by following the given steps:
 
  * Send a sample request:
  
-    ```curl http://localhost:9091/displayMessage```
+    ```curl http://localhost:9091/message```
     
     One can also use the sample script we have to send more requests to the server application and see metrics such as count, duration histogram etc in Haystack UI under trends.
     ```
     ./run.sh
     ```
     
- * Open Haystack UI at http://localhost:8080/ and search for `serviceName=test-blob-client` to see the traces.
+ * Open Haystack UI at http://localhost:8080/ and search for `serviceName=blob-client` to see the traces.
 
 * Open the trace and look for `request-blob` and `response-blob` tags.
+
+
+#### How to blob conditionally?
+There may be a valid usecase where you don't want to blob request/response with every span, may be for performance reasons.
+But you may want to turn on the blobs only if you see a X-DEBUG header from your upstream request. In order to do this, 
+you can implement these functions and setBlobable in BlobFactory. By default, they are set to true.
+
+```java
+    boolean isServerRequestValidForBlob(ContainerRequestContext req);
+    boolean isServerResponseValidForBlob(ContainerResponseContext resp);
+    boolean isClientRequestValidForBlob(ClientRequestContext req);
+    boolean isClientResponseValidForBlob(ClientResponseContext resp);
+```
