@@ -5,24 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 public class ClientResponse implements Serializable {
-    private String clientMessage;
-    private ServerResponse serverResponse;
+    private String name;
+    private String serverResponse;
 
-    public ClientResponse() {
-    }
-
-    public ClientResponse(String clientMessage, ServerResponse serverResponse) {
-        this.clientMessage = clientMessage;
+    public ClientResponse(String name, String serverResponse) {
+        this.name = name;
         this.serverResponse = serverResponse;
     }
 
     @JsonProperty
-    public String getClientMessage() {
-        return clientMessage;
+    public String getName() {
+        return name;
     }
 
     @JsonProperty
-    public ServerResponse getServerResponse() {
+    public String getServerResponse() {
         return serverResponse;
     }
 }
