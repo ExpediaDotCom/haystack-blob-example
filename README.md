@@ -18,7 +18,7 @@ Writing a blob to a store is the most easy step for which you can refer [this](h
 
 ## Dependencies involved
 
-We use [haystack-dropwizard](https://github.com/ExpediaDotCom/haystack-dropwizard) library version >= 0.3.0 that adds the support for blobs.
+We use [haystack-dropwizard](https://github.com/ExpediaDotCom/haystack-dropwizard) library version >= 0.3.1 that adds the support for blobs.
  
  ## Running this example
   
